@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>云平台数据中心--日志</title>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.js"></script>
+<!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div class="container">
+    <div id="row_1">
+        <h2>一、试用单位基本信息</h2>
+        <p>说明</p>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>产品名称</th>
+                <th>Scholargate（全球高水平学者数据库）</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>开通试用单位</td>
+                <td>#</td>
+            </tr>
+            <tr>
+                <td>试用开通时间</td>
+                <td>#</td>
+            </tr>
+            <tr>
+                <td>数据库网址</td>
+                <td>http://sg.casdc.com/</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="row_2">
+        <h2>二、试用总体情况</h2>
+        <p>××××在××××年××年××日至××××年××月××日期间，访问Scholargate全球高水平学者数据库的访问人次和点击率总体情况如表2-1：</p>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>统计分类</th>
+                <th>IP访问</th>
+                <th>学科点击</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>IP访问</td>
+                <td>#</td>
+                <td>#</td>
+            </tr>
+            <tr>
+                <td>点击次数</td>
+                <td>#</td>
+                <td>#</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>注：访问人次：从访问者打开一个网站的页面开始，不管点击多少页面，直到离开（或中间停止操作一定时间）这个网站为止，计算为一个访问人次。这里我们将中间离开或者停止操作的时间（Session失效时间）设定为1小时，即访问者1小时候后继续浏览网站，在这种情况下将统计为2个访问人次。
+            点击次数：是指一段时间内（常以“日”为标准）某网站或者网页被点击访问的次数。</p>
+
+    </div>
+    <div id="row_3">
+        <p>联系学者和订阅发文总体情况如表2-2：</p>
+        <table class="table table-condensed">
+            <thead>
+            <tr>
+                <th>统计分类</th>
+                <th>发送邮件联系学者</th>
+                <th>订阅最新发文</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>（发送/订阅）次数</td>
+                <td>#</td>
+                <td>#</td>
+            </tr>
+            </tbody>
+        </table>
+        <p>注：访问人次：从访问者打开一个网站的页面开始，不管点击多少页面，直到离开（或中间停止操作一定时间）这个网站为止，计算为一个访问人次。这里我们将中间离开或者停止操作的时间（Session失效时间）设定为1小时，即访问者1小时候后继续浏览网站，在这种情况下将统计为2个访问人次。
+            点击次数：是指一段时间内（常以“日”为标准）某网站或者网页被点击访问的次数。</p>
+    </div>
+    <div id="row_4">
+        <h2>三、每月使用情况</h2>
+        <p>××××申请开通试用Scholargate全球高水平学者数据库以来，每月访问人次、点击次数如图3-1：</p>
+        <div id="picture_1" class="col-md-6" style="height:400px"></div>
+    </div>
+    <div id="row_5">
+        <h2>一、试用单位基本信息</h2>
+        <div id="picture_2" class="col-md-6" style="height:400px"></div>
+    </div>
+    <div id="row_7">
+        <h2>一、试用单位基本信息</h2>
+        <div id="picture_3" class="col-md-6" style="height:400px"></div>
+    </div>
+    <div id="row_8">
+        <h2>一、试用单位基本信息</h2>
+        <div id="picture_4" class="col-md-6" style="height:400px"></div>
+    </div>
+    <div id="row_9">
+        <h2>一、试用单位基本信息</h2>
+        <div id="picture_5" class="col-md-6" style="height:400px"></div>
+    </div>
+    <div id="row_10">
+        <h2>一、试用单位基本信息</h2>
+        <div id="picture_6" class="col-md-6" style="height:400px"></div>
+    </div>
+    <div id="row_11">
+        <h2>一、试用单位基本信息</h2>
+        <div id="picture_7" class="col-md-6" style="height:400px"></div>
+    </div>
+</div>
+
+<!-- ECharts单文件引入 -->
+
+<script type="text/javascript">
+    $(function(){
+//        getEcharts1(objectResult,'main');//资助情况项目数量年度趋势统计图
+        getEcharts_1('picture_1');//IP点击次数top10
+        getEcharts_2('picture_2');//学科点击top10
+        getEcharts_3('picture_3');//发送邮件联系学者top10 IP分布
+        getEcharts_4('picture_4');//发送邮件联系学者top10 IP分布
+        getEcharts_5('picture_5');//发送邮件联系学者top10 IP分布
+    });
+    function getEcharts_1(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
+
+        option = {
+            title: {
+                text: '世界人口总量',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['2011年', '2012年']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+            },
+            series: [
+                {
+                    name: '2011年',
+                    type: 'bar',
+                    data: [18203, 23489, 29034, 104970, 131744, 630230]
+                },
+                {
+                    name: '2012年',
+                    type: 'bar',
+                    data: [19325, 23438, 31000, 121594, 134141, 681807]
+                }
+            ]
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+    function getEcharts_2(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
+        var weatherIcons = {
+            'Sunny': './data/asset/img/weather/sunny_128.png',
+            'Cloudy': './data/asset/img/weather/cloudy_128.png',
+            'Showers': './data/asset/img/weather/showers_128.png'
+        };
+
+        option = {
+            title: {
+                text: '发送邮件联系学者top10 IP分布如图',
+                subtext: '虚构数据',
+                left: 'center'
+            },
+            tooltip : {
+                trigger: 'item',
+                formatter: "{a} <br/>{b} : {c} ({d}%)"
+            },
+            legend: {
+                // orient: 'vertical',
+                // top: 'middle',
+                bottom: 10,
+                left: 'center',
+                data: ['西凉', '益州','兖州','荆州','幽州']
+            },
+            series : [
+                {
+                    type: 'pie',
+                    radius : '65%',
+                    center: ['50%', '50%'],
+                    selectedMode: 'single',
+                    data:[
+                        {
+                            value:1548,
+                            name: '幽州',
+                            label: {
+                                normal: {
+                                    formatter: [
+                                        '{title|{b}}{abg|}',
+                                        '  {weatherHead|天气}{valueHead|天数}{rateHead|占比}',
+                                        '{hr|}',
+                                        '  {Sunny|}{value|202}{rate|55.3%}',
+                                        '  {Cloudy|}{value|142}{rate|38.9%}',
+                                        '  {Showers|}{value|21}{rate|5.8%}'
+                                    ].join('\n'),
+                                    backgroundColor: '#eee',
+                                    borderColor: '#777',
+                                    borderWidth: 1,
+                                    borderRadius: 4,
+                                    rich: {
+                                        title: {
+                                            color: '#eee',
+                                            align: 'center'
+                                        },
+                                        abg: {
+                                            backgroundColor: '#333',
+                                            width: '100%',
+                                            align: 'right',
+                                            height: 25,
+                                            borderRadius: [4, 4, 0, 0]
+                                        },
+                                        Sunny: {
+                                            height: 30,
+                                            align: 'left',
+                                            backgroundColor: {
+                                                image: weatherIcons.Sunny
+                                            }
+                                        },
+                                        Cloudy: {
+                                            height: 30,
+                                            align: 'left',
+                                            backgroundColor: {
+                                                image: weatherIcons.Cloudy
+                                            }
+                                        },
+                                        Showers: {
+                                            height: 30,
+                                            align: 'left',
+                                            backgroundColor: {
+                                                image: weatherIcons.Showers
+                                            }
+                                        },
+                                        weatherHead: {
+                                            color: '#333',
+                                            height: 24,
+                                            align: 'left'
+                                        },
+                                        hr: {
+                                            borderColor: '#777',
+                                            width: '100%',
+                                            borderWidth: 0.5,
+                                            height: 0
+                                        },
+                                        value: {
+                                            width: 20,
+                                            padding: [0, 20, 0, 30],
+                                            align: 'left'
+                                        },
+                                        valueHead: {
+                                            color: '#333',
+                                            width: 20,
+                                            padding: [0, 20, 0, 30],
+                                            align: 'center'
+                                        },
+                                        rate: {
+                                            width: 40,
+                                            align: 'right',
+                                            padding: [0, 10, 0, 0]
+                                        },
+                                        rateHead: {
+                                            color: '#333',
+                                            width: 40,
+                                            align: 'center',
+                                            padding: [0, 10, 0, 0]
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        {value:535, name: '荆州'},
+                        {value:510, name: '兖州'},
+                        {value:634, name: '益州'},
+                        {value:735, name: '西凉'}
+                    ],
+                    itemStyle: {
+                        emphasis: {
+                            shadowBlur: 10,
+                            shadowOffsetX: 0,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+    function getEcharts_3(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
+
+        option = {
+            title: {
+                text: '折线图堆叠'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一','周二','周三','周四','周五','周六','周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'邮件营销',
+                    type:'line',
+                    stack: '总量',
+                    data:[120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name:'联盟广告',
+                    type:'line',
+                    stack: '总量',
+                    data:[220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name:'视频广告',
+                    type:'line',
+                    stack: '总量',
+                    data:[150, 232, 201, 154, 190, 330, 410]
+                },
+                {
+                    name:'直接访问',
+                    type:'line',
+                    stack: '总量',
+                    data:[320, 332, 301, 334, 390, 330, 320]
+                },
+                {
+                    name:'搜索引擎',
+                    type:'line',
+                    stack: '总量',
+                    data:[820, 932, 901, 934, 1290, 1330, 1320]
+                }
+            ]
+        };
+
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+    function getEcharts_4(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
+
+        option = {
+            title: {
+                text: '世界人口总量',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['2011年', '2012年']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+            },
+            series: [
+                {
+                    name: '2011年',
+                    type: 'bar',
+                    data: [18203, 23489, 29034, 104970, 131744, 630230]
+                },
+                {
+                    name: '2012年',
+                    type: 'bar',
+                    data: [19325, 23438, 31000, 121594, 134141, 681807]
+                }
+            ]
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+    function getEcharts_5(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
+
+        option = {
+            title: {
+                text: '世界人口总量',
+                subtext: '数据来自网络'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            legend: {
+                data: ['2011年', '2012年']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            xAxis: {
+                type: 'value',
+                boundaryGap: [0, 0.01]
+            },
+            yAxis: {
+                type: 'category',
+                data: ['巴西','印尼','美国','印度','中国','世界人口(万)']
+            },
+            series: [
+                {
+                    name: '2011年',
+                    type: 'bar',
+                    data: [18203, 23489, 29034, 104970, 131744, 630230]
+                },
+                {
+                    name: '2012年',
+                    type: 'bar',
+                    data: [19325, 23438, 31000, 121594, 134141, 681807]
+                }
+            ]
+        };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+</script>
+</body>
+
+<!-- 添加/编辑 视图 -->
+<!--<script type="text/javascript" src="<{$webdb['www']}>widgets/conf/core/dist/echarts_new.js" charset="utf8"></script>-->
+
+<!--<script>-->
+<!--var ind,option;-->
+<!--function view_res(tag){-->
+<!--$('.djr-main').show();-->
+<!--$('#views').modal('show');-->
+<!--ind = echarts.init(document.getElementById('id_1'));-->
+<!--if(tag==1){-->
+<!--option = {-->
+<!--tooltip : {-->
+<!--trigger: 'axis'-->
+<!--},-->
+<!--toolbox: {-->
+<!--show : true,-->
+<!--feature : {-->
+<!--mark : {show: true},-->
+<!--dataView : {show: true, readOnly: false,title:'数据',lang:['数据视图', '关闭', '刷新'],optionToContent: function(opt) {-->
+<!--var axisData = opt.xAxis[0].data;-->
+<!--var series = opt.series;-->
+<!--var table = '<table style="width:100%;text-align:center"><tbody><tr><td>时间</td>';-->
+<!--$.each(series,function(c,d){-->
+<!--table+='<td>' + d.name + '</td>';-->
+<!--});-->
+<!--table+="</tr>";-->
+<!--for (var i = 0, l = axisData.length; i < l; i++) {-->
+<!--table += '<tr><td>' + axisData[i] + '</td>';-->
+<!--$.each(series,function(c,d){-->
+<!--table+='<td>' + d.data[i] + '</td>';-->
+<!--});-->
+<!--table+="</tr>";-->
+<!--}-->
+<!--table += '</tbody></table>';-->
+<!--return table;-->
+<!--}}-->
+<!--}-->
+<!--},-->
+<!--legend: {-->
+<!--data:[]-->
+<!--},-->
+<!--calculable : true,-->
+<!--xAxis : [-->
+<!--{-->
+<!--type: 'category',-->
+<!--boundaryGap : false,-->
+<!--data: []-->
+<!--}],-->
+<!--yAxis : [{type : 'value'}],-->
+<!--series : []-->
+<!--};-->
+<!--}else{-->
+<!--option = {-->
+<!--title: {-->
+<!--text: '各\n学\n校\n访\n问\n统\n计',-->
+<!--left: 'left'-->
+<!--},-->
+<!--toolbox: {-->
+<!--show : true,-->
+<!--feature : {-->
+<!--mark : {show: true},-->
+<!--dataView : {show: true, readOnly: false,title:'数据',lang:['数据视图', '关闭', '刷新']}-->
+<!--}-->
+<!--},-->
+<!--tooltip : {-->
+<!--trigger: 'item',-->
+<!--formatter: "{a} <br/>{b} : {c} ({d}%)"-->
+<!--},-->
+<!--series : [-->
+<!--{-->
+<!--name:'访问统计',-->
+<!--type:'pie',-->
+<!--data:[],-->
+<!--roseType: 'radius',-->
+<!--animationType: 'scale',-->
+<!--animationEasing: 'elasticOut'-->
+<!--}-->
+<!--]-->
+<!--};-->
+<!--}-->
+<!--$.ajax({-->
+<!--type: "POST",-->
+<!--url: "<{$webdb['www_library']}>/?h=<{$h}>&action=get_datas_"+tag,-->
+<!--dataType: "json",//跨域访问 dataType 必须是jsonp 类型。-->
+<!--data: "step_1=<{$selectTag['step_1']|default:''}>",-->
+<!--cache: false,-->
+<!--success: function (response) {-->
+<!--if(response.msg){-->
+<!--if(tag==1){-->
+<!--var json=[];-->
+<!--var msg=response.msg;-->
+<!--var i=0;-->
+<!--$.each(response.days,function(a,b){-->
+<!--option.xAxis[0].data.push(b);-->
+<!--$.each(response.sch,function(c,d){-->
+<!--if(!i){-->
+<!--json[d]=[];option.legend.data.push(d);-->
+<!--}-->
+<!--var nn=0;-->
+<!--if(msg[b]){-->
+<!--if(msg[b][d]){-->
+<!--nn=msg[b][d];-->
+<!--}-->
+<!--}-->
+<!--json[d].push(nn);-->
+<!--});-->
+<!--i++;-->
+<!--});-->
+<!--$.each(response.sch,function(c,d){-->
+<!--option.series.push({name:d,type:'line',data:json[d]});-->
+<!--});-->
+<!--}else{-->
+<!--$.each(response.msg,function(a,b){-->
+<!--option.series[0].data.push({name:b.school_name,value:b.nums});-->
+<!--});-->
+<!--}-->
+<!--ind.setOption(option);-->
+<!--}else{-->
+<!--layer.alert("未查询到相关结果");-->
+<!--}-->
+<!--//关闭动画-->
+<!--$('.djr-main').hide();-->
+<!--//加载浮层-->
+<!--$('#views .c-changge').show();-->
+<!--},-->
+<!--error:function(xhr,textStatus){-->
+<!--console.log('ajax失败')-->
+<!--},-->
+<!--});-->
+<!--}-->
+<!--</script>-->
