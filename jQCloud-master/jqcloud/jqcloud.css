@@ -1,0 +1,50 @@
+/* fonts */
+
+div.jqcloud {
+  font-family: "Microsoft YaHei";
+  font-size: 10px;
+  line-height: normal;
+}
+
+div.jqcloud a {
+  font-size: inherit;
+  text-decoration: none;
+}
+
+
+div.jqcloud span.w10 { font-size: 410%;}
+div.jqcloud span.w9 { font-size: 380%;}
+div.jqcloud span.w8 { font-size: 350%;}
+div.jqcloud span.w7 { font-size: 300%;}
+div.jqcloud span.w6 { font-size: 260%;}
+div.jqcloud span.w5 { font-size: 220%;}
+div.jqcloud span.w4 { font-size: 200%;}
+div.jqcloud span.w3 { font-size: 170%;}
+div.jqcloud span.w2 { font-size: 140%;}
+div.jqcloud span.w1 { font-size: 100%; }
+
+/* colors */
+
+div.jqcloud { color: #09f; }
+div.jqcloud a { color: inherit; }
+div.jqcloud a:hover { color: #0df; }
+div.jqcloud a:hover { color: #0cf; }
+div.jqcloud span.w10 { color: rgb(255, 107, 1); }
+div.jqcloud span.w9 { color: rgb(171, 229, 5) }
+div.jqcloud span.w8 { color: rgb(235, 200, 16) }
+div.jqcloud span.w7 { color: rgb(248, 165, 16) }
+div.jqcloud span.w6 { color:rgb(13, 163, 146) }
+div.jqcloud span.w5 { color: rgb(22, 122, 198); }
+div.jqcloud span.w4 { color:rgb(0, 184, 230); }
+div.jqcloud span.w3 { color:rgb(27, 189, 16); }
+div.jqcloud span.w2 { color: rgb(174, 228, 18); }
+div.jqcloud span.w1 { color: rgb(82, 107, 232); }
+
+/* layout */
+
+div.jqcloud {
+  overflow: hidden;
+  position: relative;
+}
+
+div.jqcloud span { padding: 0; }
