@@ -1,0 +1,42 @@
+<table class="content">
+    <tbody><tr>
+        <td>
+            <div id="set" class="device"><br>
+                <input placeholder="皇上说：" value="不许分享这个东西！" id="text1"><br>
+                <input placeholder="皇后说：" value="臣妾做不到啊！" id="text2"><br>
+                <select id="font">
+                    <option value="0" selected="">微软雅黑加粗</option>
+                    <option value="1">华康少女字体</option>
+                    <option value="2">方正少儿简体</option>
+                    <option value="3">仿宋简体</option>
+                    <option value="4">启功字体</option>
+                    <option value="5">徐静蕾字体</option>
+                    <option value="6">司马彦字体</option>
+                </select>
+                <input type="submit" value="生成臣妾做不到啊图片" id="out" onclick="javascript:gen();"><br>
+            </div>
+        </td>
+        <td>
+            <div class="device">
+                <img src="nodata.png" id="show" data-bd-imgshare-binded="1">
+            </div>
+        </td>
+    </tr>
+    </tbody></table>
+<script>
+    function gen() {
+        document.title = '"' + document.getElementById("text1").value + '"，"' + document.getElementById("text2").value + '"。 [aTool在线微博热图制作]';
+        document.getElementById('show').src = "http://1.phpgd.sinaapp.com/zbd.jpg?t1=" + document.getElementById('text1').value + "&t2=" + document.getElementById('text2').value + "&font=" + document.getElementById('font').value;
+        var i = 0;
+        var notice = setInterval(function() {
+            if (i % 2 === 0) {
+                document.getElementById("show").className = "notice";
+            } else {
+                document.getElementById("show").className = "";
+            }
+            if (i++ > 4) {
+                clearInterval(notice);
+            }
+        }, 200);
+    }
+</script>

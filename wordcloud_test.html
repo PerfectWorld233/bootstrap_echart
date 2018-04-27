@@ -6,7 +6,7 @@
     <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
     <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.js"></script>
-    <script src="worldcloud.js"></script>
+    <script src="worldcloud_backup.js"></script>
     <script src="echarts.js"></script>
 </head>
 <body>
@@ -44,22 +44,91 @@
                     },
                     emphasis : {
                         shadowBlur : 5,  //阴影距离
-                        shadowColor : '#333'  //阴影颜色
+                        shadowColor : '#777'  //阴影颜色
                     }
                 },
                 data:[]
             }]
         });
-        // 异步加载数据
-        $.get('cloud.json').done(function (data) {
-            // 填入数据
-            console.log(data);
-            myChart.setOption({
-                series: [{
-                    data: data.dataCloud
-                }]
-            });
+        myChart.setOption({
+            series: [{
+                data: [
+                    {"name": "云图","value": "200"},
+                    {"name": "是个啥","value": "156"},
+                    {"name": "他啥都不是","value": "122"},
+                    {"name": "就是他呆子","value": "119"},
+                    {"name": "傻子和疯子","value": "108"},
+                    {"name": "营养快线","value": "101"},
+                    {"name": "哈哈哈到家","value": "96"},
+                    {"name": "瑞士军刀","value": "84"},
+                    {"name": "DW情侣对表","value": "58"},
+                    {"name": "清风抽纸","value": "55"},
+                    {"name": "OPPO R9S","value": "46"},
+                    {"name": "这一刻更清晰","value": "28"},
+                    {"name": "呵呵旧宫style","value": "27"},
+                    {"name": "债券评级","value": "26"}]
+            }]
         });
+        var createRandomItemStyle1 = function (params) {　　　　//此方法与下方配置中的第一个textStle下的color等同
+            var colors = ['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+            return colors[parseInt(Math.random() * 10)];
+        }
+
+        var createRandomItemStyle2 = function () {
+            var colorArr = ['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+            var flag = parseInt(Math.random() * 10);
+            return {
+                normal: {
+                    fontFamily: '微软雅黑',
+            color:colorArr[flag]
+        }
+        };
+        }
+        function _setWordCloud (cloudData) {
+            var option = {
+                series: [
+                    {
+                        type: 'wordCloud',
+            shape: 'ellipse',
+            gridSize: 8,
+                textStyle: {
+                normal: {
+                    fontFamily: '微软雅黑',
+                    color: function () {
+                        var colors = ['#fda67e', '#81cacc', '#cca8ba', "#88cc81", "#82a0c5", '#fddb7e', '#735ba1', '#bda29a', '#6e7074', '#546570', '#c4ccd3'];
+                        return colors[parseInt(Math.random() * 10)];
+                    }
+                }
+            },
+
+            /*注释一：*/
+            textStyle:createRandomItemStyle2(),
+
+
+            /*注释二：*/
+            /*textStyle: {
+            normal: {
+                    fontFamily: '微软雅黑',
+                    color: createRandomItemStyle1()
+                }
+            },*/
+            data: cloudData
+        }
+        ]
+        };
+            return option;
+        };
+
+        // 异步加载数据
+        // $.get('cloud.json').done(function (data) {
+        //     // 填入数据
+        //     console.log(data);
+        //     myChart.setOption({
+        //         series: [{
+        //             data: data.dataCloud
+        //         }]
+        //     });
+        // });
     }
 
 

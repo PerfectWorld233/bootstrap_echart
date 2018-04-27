@@ -3,13 +3,35 @@
     <meta charset="utf-8">
     <title>云平台数据中心--日志</title>
 </head>
-<body>
+<body style="margin-top: 100px">
 <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
 <link href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
-<script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.js"></script>
-<script src="worldcloud.js"></script>
-<script src="echarts.js"></script>
+<!--<script src="https://cdn.bootcss.com/echarts/4.0.4/echarts.js"></script>-->
+<script src="https://cdn.bootcss.com/echarts/3.6.0/echarts.js"></script>
+<!--<script src="echarts-all.js"></script>-->
+<script src="worldcloud_backup.js"></script>
+<!--<script src="wordcloud2.js"></script>-->
+<script src="bootstrap-3.3.7/css/bootstrap.min.css"></script>
+
 <!-- 为ECharts准备一个具备大小（宽高）的Dom -->
+<div style="background-color:red;position:fixed;z-index:2;right: 20px;">
+    <button href="">将报告转换为pdf</button>
+</div>
+<div class="container" style="margin-bottom: 500px;">
+    <div id="first" style="position: relative;
+        left: 700px">
+        <img src="logo1.png">
+    </div>
+    <div style="margin-top: 200px;">
+        <h1>南京大学高水平学者库使用报告</h1>
+        <p>Scholargate</p>
+        <p>宝和数据</p>
+    </div>
+    <div>
+        <h1>南京大学高水平学者库使用报告</h1>
+        <p>Scholargate</p>
+    </div>
+</div>
 <div class="container">
     <div id="row_1">
         <h2>一、试用单位基本信息</h2>
@@ -86,10 +108,20 @@
         <p>注：访问人次：从访问者打开一个网站的页面开始，不管点击多少页面，直到离开（或中间停止操作一定时间）这个网站为止，计算为一个访问人次。这里我们将中间离开或者停止操作的时间（Session失效时间）设定为1小时，即访问者1小时候后继续浏览网站，在这种情况下将统计为2个访问人次。
             点击次数：是指一段时间内（常以“日”为标准）某网站或者网页被点击访问的次数。</p>
     </div>
+
+    <div id="row_31">
+        <h4>IP点击次数top10</h4>
+        <div id="picture_31" class="col-md-12" style="height:400px"></div>
+    </div>
+    <div id="row_32">
+        <h4>IP点击次数top10</h4>
+        <div id="picture_32" class="col-md-12" style="height:400px"></div>
+    </div>
+
     <div id="row_4">
         <h2>三、每月使用情况</h2>
         <p>××××申请开通试用Scholargate全球高水平学者数据库以来，每月访问人次、点击次数如图3-1：</p>
-        <div id="picture_1" class="col-md-12" style="height:400px"></div>
+        <div id="picture_1" class="col-md-12" style="height:400px"><img src="11.jpg"></div>
     </div>
     <div id="row_5">
         <h2>四、Top10使用情况统计</h2>
@@ -116,6 +148,7 @@
         <h4>IP点击次数top10</h4>
         <div id="picture_7" class="col-md-12" style="height:400px"></div>
     </div>
+
 </div>
 
 <!-- ECharts单文件引入 -->
@@ -123,19 +156,75 @@
 <script type="text/javascript">
     $(function(){
 //        getEcharts1(objectResult,'main');//资助情况项目数量年度趋势统计图
+        getEcharts_31('picture_31');//IP点击次数top10
+        getEcharts_32('picture_32');//IP点击次数top10
         getEcharts_1('picture_1');//IP点击次数top10
         getEcharts_2('picture_2');//学科点击top10
         getEcharts_3('picture_3');//发送邮件联系学者top10 IP分布
         getEcharts_4('picture_4');//发送邮件联系学者top10 IP分布
         getEcharts_5('picture_5');//发送邮件联系学者top10 IP分布
     });
-    function getEcharts_1(obj){//实施率%
+    function getEcharts_31(obj){//实施率%
         var myChart = echarts.init(document.getElementById(obj));
-        var weatherIcons = {
-            'Sunny': './data/asset/img/weather/sunny_128.png',
-            'Cloudy': './data/asset/img/weather/cloudy_128.png',
-            'Showers': './data/asset/img/weather/showers_128.png'
+
+        option = {
+            title: {
+                text: '折线图堆叠'
+            },
+            tooltip: {
+                trigger: 'axis'
+            },
+            legend: {
+                data:['邮件营销','联盟广告','视频广告','直接访问','搜索引擎']
+            },
+            grid: {
+                left: '3%',
+                right: '4%',
+                bottom: '3%',
+                containLabel: true
+            },
+            toolbox: {
+                feature: {
+                    saveAsImage: {}
+                }
+            },
+            xAxis: {
+                type: 'category',
+                boundaryGap: false,
+                data: ['周一','周二','周三','周四','周五','周六','周日']
+            },
+            yAxis: {
+                type: 'value'
+            },
+            series: [
+                {
+                    name:'邮件营销',
+                    type:'line',
+                    stack: '总量',
+                    data:[120, 132, 101, 134, 90, 230, 210]
+                },
+                {
+                    name:'联盟广告',
+                    type:'line',
+                    stack: '总量',
+                    data:[220, 182, 191, 234, 290, 330, 310]
+                },
+                {
+                    name:'视频广告',
+                    type:'line',
+                    stack: '总量',
+                    data:[150, 232, 201, 154, 190, 330, 410]
+                }
+            ]
         };
+
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+    function getEcharts_32(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
 
         option = {
             title: {
@@ -178,6 +267,154 @@
                 }
             ]
         };
+
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+    }
+
+    function getEcharts_1(obj){//实施率%
+        var myChart = echarts.init(document.getElementById(obj));
+        function createRandomItemStyle() {
+            return {
+                normal: {
+                    color: 'rgb(' + [
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160),
+                        Math.round(Math.random() * 160)
+                    ].join(',') + ')'
+                }
+            };
+        }
+
+
+        option = {
+            title: {
+                text: 'Google Trends',
+                link: 'http://www.google.com/trends/hottrends'
+            },
+            tooltip: {
+                show: true
+            },
+            series: [{
+                name: 'Google Trends',
+                type: 'wordCloud',
+                size: ['80%', '80%'],
+                textRotation : [0, 45, 90, -45],
+                textPadding: 0,
+                autoSize: {
+                    enable: true,
+                    minSize: 14
+                },
+                data: [
+                    {
+                        name: "Sam S Club",
+                        value: 10000,
+                        itemStyle: {
+                            normal: {
+                                color: 'black'
+                            }
+                        }
+                    },
+                    {
+                        name: "Macys",
+                        value: 6181,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Amy Schumer",
+                        value: 4386,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Jurassic World",
+                        value: 4055,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Charter Communications",
+                        value: 2467,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Chick Fil A",
+                        value: 2244,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Planet Fitness",
+                        value: 1898,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Pitch Perfect",
+                        value: 1484,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Express",
+                        value: 1112,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Home",
+                        value: 965,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Johnny Depp",
+                        value: 847,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Lena Dunham",
+                        value: 582,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Lewis Hamilton",
+                        value: 555,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "KXAN",
+                        value: 550,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Mary Ellen Mark",
+                        value: 462,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Farrah Abraham",
+                        value: 366,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Rita Ora",
+                        value: 360,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Serena Williams",
+                        value: 282,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "NCAA baseball tournament",
+                        value: 273,
+                        itemStyle: createRandomItemStyle()
+                    },
+                    {
+                        name: "Point Break",
+                        value: 265,
+                        itemStyle: createRandomItemStyle()
+                    }
+                ]
+            }]
+        };
+
 
 
         // 使用刚指定的配置项和数据显示图表。
@@ -447,16 +684,21 @@
     function getEcharts_5(obj){//实施率%
         var myChart = echarts.init(document.getElementById(obj));
 
-        var option = {
-            tooltip : {},
-            series : [ {
-                type : 'wordCloud',
-                shape:'smooth',
-                gridSize : 2,
-                sizeRange : [ 50, 100 ],
-                rotationRange : [ 46, 80 ],
+        myChart.setOption({
+            title: {
+                text: 'echarts3云图展示'
+            },
+            tooltip: {},
+            series: [{
+                type : 'wordCloud',  //类型为字符云
+                shape:'smooth',  //平滑
+                gridSize : 2, //网格尺寸
+                size : ['80%','80%'],
+                //sizeRange : [ 50, 100 ],
+                rotationRange : [ 46, 80 ], //旋转范围
                 textStyle : {
                     normal : {
+                        fontFamily:'sans-serif',
                         color : function() {
                             return 'rgb('
                                 + [ Math.round(Math.random() * 160),
@@ -466,18 +708,33 @@
                         }
                     },
                     emphasis : {
-                        shadowBlur : 10,
-                        shadowColor : '#333'
+                        shadowBlur : 5,  //阴影距离
+                        shadowColor : '#333'  //阴影颜色
                     }
                 },
-                data : ['直接访问','邮件营销','联盟广告','视频广告','搜索引擎']
-            } ]
-        };
-
-
-
+                data:[]
+            }]
+        });
+        myChart.setOption({
+            series: [{
+                data: [
+                    {"name": "云图","value": "200"},
+                    {"name": "是个啥","value": "156"},
+                    {"name": "他啥都不是","value": "122"},
+                    {"name": "就是他呆子","value": "119"},
+                    {"name": "傻子和疯子","value": "108"},
+                    {"name": "营养快线","value": "101"},
+                    {"name": "哈哈哈到家","value": "96"},
+                    {"name": "瑞士军刀","value": "84"},
+                    {"name": "DW情侣对表","value": "58"},
+                    {"name": "清风抽纸","value": "55"},
+                    {"name": "OPPO R9S","value": "46"},
+                    {"name": "这一刻更清晰","value": "28"},
+                    {"name": "呵呵旧宫style","value": "27"},
+                    {"name": "债券评级","value": "26"}]
+            }]
+        });
         // 使用刚指定的配置项和数据显示图表。
-        myChart.setOption(option);
     }
     function getEcharts_6(obj){//实施率%
         var myChart = echarts.init(document.getElementById(obj));

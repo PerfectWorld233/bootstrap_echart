@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="node_modules/bootstrap-table/dist/bootstrap-table-locale-all.js"></script>
+    <link href="node_modules/bootstrap-table/dist/bootstrap-table.css">
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css"  rel="stylesheet"/>
+</head>
+<body>
+
+
+
+<p>下一行</p>
+<table border = 1 width = 500>
+    <tr>
+        <td>月份</td>
+        <td>月点击总量</td>
+        <td>时间</td>
+        <td>点击量</td>
+    </tr>
+    <tr>
+        <td rowspan="5">3</td>
+        <td rowspan="5">ddd</td>
+        <td>11</td>
+        <td>fff</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>fff</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>fff</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>sss</td>
+    </tr>
+
+    <tr>
+        <td>4</td>
+        <td>sss</td>
+    </tr>
+    <tr>
+        <td rowspan="5">3</td>
+        <td rowspan="5">ddd</td>
+        <td>11</td>
+        <td>fff</td>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>fff</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>fff</td>
+    </tr>
+    <tr>
+        <td>4</td>
+        <td>sss</td>
+    </tr>
+
+
+
+
+</table>
+</body>
+<script type="text/javascript">
+
+    $('#TableName').bootstrapTable('mergeCells', { index: 0, field: '类别名称', colspan: 0, rowspan: 1});
+    function cd(data,fieldName,colspan,target){
+        //声明一个map计算相同属性值在data对象出现的次数和
+        var sortMap = {};
+        for(var i = 0 ; i < data.length ; i++){
+            for(var prop in data[i]){
+                if(prop == fieldName){
+                    var key = data[i][prop];
+                    if(sortMap.hasOwnProperty(key)){
+                        sortMap[key] = sortMap[key] * 1 + 1;
+                    } else {
+                        sortMap[key] = 1;
+                    }
+                    break;
+                }
+            }
+        }
+        for(var prop in sortMap){
+            console.log(prop,sortMap[prop])
+        }
+        var index = 0;
+        for(var prop in sortMap){
+            var count = sortMap[prop] * 1;
+            $(target).bootstrapTable('mergeCells',{index:index, field:fieldName, colspan: colspan, rowspan: count});
+            index += count;
+        }
+    }
+</script>
+</html>

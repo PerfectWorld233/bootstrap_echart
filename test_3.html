@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <title>不等距折线图</title>
+    <script src="http://apps.bdimg.com/libs/jquery/1.7.1/jquery.js"></script>
+    <script src="https://cdn.bootcss.com/echarts/3.6.1/echarts.min.js"></script>
+
+</head>
+<body>
+<div id="main" style="height:400px"></div>
+<script type="text/javascript">
+    //图表
+    var myChart;
+    //图表参数
+    var option;
+
+    $(function(){
+        //创建Echarts
+        myChart = echarts.init(document.getElementById('main'));
+        //初始化图表选项
+        initOption();
+        // 为echarts对象加载图表选项
+        myChart.setOption(option);
+    })
+
+    //初始化Option
+    function initOption(){
+        option = {
+            //设置标题
+            title : {
+                text : '不等距折线图',
+            },
+            //设置鼠标移动到节点上时显示的内容
+            tooltip : {
+                trigger: 'item',//触发类型 'item' | 'axis'
+                formatter : function (params) { //内容格式器：
+                    var date = new Date(params.value[0]);
+                    data = date.getHours() + ':'
+                        + date.getMinutes();
+                    return "时间："+data + '<br/>'+ "数值："+params.value[1];
+                }
+            },
+            //设置图例，与折线名称相对应
+            legend : {
+                data : ['随机数值']
+            },
+            //设置边框
+            grid: {
+                x : 40,
+                y : 60,
+                x2: 20,
+                y2: 60
+            },
+            //设置横坐标
+            xAxis : [
+                {
+                    axisLabel :{
+                        textStyle:{
+                            color: '#333'
+                        },
+                        //设置x轴显示样式
+                        formatter:function(params){
+                            var date = new Date(params);
+                            return date.getHours()+":00";
+                        }
+                    },
+                    type : 'time',
+                    data : (function(){
+                        var d = [];
+                        var i = -1 ;
+                        while(i++ < 24){
+                            d.push(new Date(2017, 9, 1, i,0,0));
+                        }
+                        return d;
+                    })(),
+                    min: new Date(2017, 9, 1, 0,0,0),
+                    max: new Date(2017, 9, 2, 0,0,0),
+                    splitLine:{show:true},
+                    splitNumber:25
+                }
+            ],
+            //设置纵坐标
+            yAxis : [
+                {
+                    type : 'value',
+                    min: 0,
+                    max: 100,
+                    splitArea:{show:true,
+                        areaStyle:{color:['#008000',
+                                '#99CC00',
+                                '#FFFF00',
+                                '#FF9900',
+                                '#FF0000']}
+                    },
+                    splitLine:{show:false},
+                    splitNumber:5
+                }
+            ],
+            //设置数据驱动
+            series : [
+                {
+                    name: '随机数值',
+                    type: 'line',
+                    //图标大小，根据值进行计算
+                    symbolSize: function (value){
+                        return Math.round(value[1]/10) + 4;
+                    },
+                    data: (function () {
+                        var d = [];
+                        var len = -1;
+                        while (len++ < 23) {
+                            var timeDate = new Date(2017, 9, 1, len,(Math.random()*30).toFixed(0),0);//时间 2017 10 1
+                            var randomNum = (Math.random()*100).toFixed(2);//100以内随机数，保留两位小数
+                            //如果数据格式为'-',则折线表示为断点
+                            if(len == 5){
+                                randomNum = '-';
+                            }
+                            d.push([timeDate,randomNum]);
+                        }
+                        return d;
+                    })()
+                }
+            ]
+        };
+    }
+
+</script>
+</body>
